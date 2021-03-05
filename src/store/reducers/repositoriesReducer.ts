@@ -6,13 +6,32 @@ import {
 
 interface RepositoriesState {
   loading: boolean;
-  error: Error | null;
+  error: string | null;
   data: string[];
 }
 
-const reducer = (state: RepositoriesState, action: any): RepositoriesState => {
-  const { type, payload } = action;
-  switch (type) {
+interface SearchRepositoriesAction {
+  type: "SEARCH_REPOSITORIES";
+}
+
+interface SearchRepositoriesSuccessAction {
+  type: "SEARCH_REPOSITORIES_SUCCESS";
+  payload: string[];
+}
+
+interface SearchRepositoriesErrorAction {
+  type: "SEARCH_REPOSITORIES_ERROR";
+  payload: string;
+}
+
+const reducer = (
+  state: RepositoriesState,
+  action:
+    | SearchRepositoriesAction
+    | SearchRepositoriesSuccessAction
+    | SearchRepositoriesErrorAction
+): RepositoriesState => {
+  switch (action.type) {
     case SEARCH_REPOSITORIES:
       return {
         loading: true,
@@ -23,12 +42,12 @@ const reducer = (state: RepositoriesState, action: any): RepositoriesState => {
       return {
         loading: false,
         error: null,
-        data: payload,
+        data: action.payload,
       };
     case SEARCH_REPOSITORIES_ERROR:
       return {
         loading: false,
-        error: payload,
+        error: action.payload,
         data: [],
       };
     default:
