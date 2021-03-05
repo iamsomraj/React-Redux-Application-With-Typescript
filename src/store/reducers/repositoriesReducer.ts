@@ -24,12 +24,14 @@ interface SearchRepositoriesErrorAction {
   payload: string;
 }
 
+type Action =
+  | SearchRepositoriesAction
+  | SearchRepositoriesSuccessAction
+  | SearchRepositoriesErrorAction;
+
 const reducer = (
   state: RepositoriesState,
-  action:
-    | SearchRepositoriesAction
-    | SearchRepositoriesSuccessAction
-    | SearchRepositoriesErrorAction
+  action: Action
 ): RepositoriesState => {
   switch (action.type) {
     case SEARCH_REPOSITORIES:
