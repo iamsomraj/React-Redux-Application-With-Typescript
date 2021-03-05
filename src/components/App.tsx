@@ -6,7 +6,7 @@ const App: React.FC = () => {
   return (
     <Provider store={store}>
       <div>
-        <h3>Search for a NPM package</h3>
+        <h3>Search your favourite package from NPM</h3>
         <RepositoriesList />
       </div>
     </Provider>
